@@ -10,9 +10,8 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.red,
       appBar: AppBar(
-        title: const Text('Home Screen'),
+        title: const Text('Delicioso'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -20,13 +19,6 @@ class HomeScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            // Add the Image widget here
-            Image.asset(
-              'assets/recipe_logo.png', // Replace with your image path
-              height: 150, // Adjust height as needed
-              fit: BoxFit.cover, // Adjust the fit as needed
-            ),
-            const SizedBox(height: 16),
             ElevatedButton(
               onPressed: () {
                 Navigator.push(
@@ -34,7 +26,7 @@ class HomeScreen extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => const RecipesScreen()),
                 );
               },
-              child: const Text('View Recipes'),
+              child: const Text('Recipes'),
             ),
             const SizedBox(height: 16),
             ElevatedButton(
