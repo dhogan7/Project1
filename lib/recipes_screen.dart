@@ -89,6 +89,20 @@ class RecipesScreen extends StatelessWidget {
           'Seasoning of choice'
         ],
       },
+      {
+        'name': 'Greek Salad',
+        'instructions': [
+          'Chop vegetables.',
+          'Mix all ingredients',
+          'Serve chilled.'
+        ],
+        'ingredients': [
+          'Cucumbers',
+          'Tomatoes',
+          'Juice from Lemon',
+          'Feta cheese'
+        ],
+      },
     ],
     'Dinner': [
       {
@@ -155,8 +169,20 @@ class RecipesScreen extends StatelessWidget {
         ],
       },
       {
-          'name': 'Greek Salad',
-        },
+            'name': 'Tacos',
+        'instructions': [
+          'Cook meat.',
+          'Fill tortillas.',
+          'Add favorite toppings.'
+        ],
+        'ingredients': [
+          'Tortillas',
+          '1lb of ground turkey or beef',
+          '1/4 cup of Cheese',
+          'Lettuce', 
+          'Tomatoes'
+
+        ],
       },
     ],
   };
