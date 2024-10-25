@@ -156,7 +156,6 @@ class RecipesScreen extends StatelessWidget {
       },
       {
           'name': 'Greek Salad',
-        },
       },
     ],
   };
@@ -200,6 +199,7 @@ class RecipesScreen extends StatelessWidget {
                     );
                   },
                 );
+              // ignore: unnecessary_to_list_in_spreads
               }).toList(),
             ],
           );
