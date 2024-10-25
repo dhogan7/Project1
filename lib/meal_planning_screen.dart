@@ -20,8 +20,6 @@ class _MealPlanningScreenState extends State<MealPlanningScreen> {
   };
 
   void _saveMeals() {
-    // Here you would handle saving the meals, e.g., to a database or local storage
-    // For demonstration, we'll show a snackbar
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text('Meals saved!')),
     );
@@ -59,6 +57,7 @@ class _MealPlanningScreenState extends State<MealPlanningScreen> {
                         selectedMeals[day]![mealType] = recipe;
                       });
                     },
+                    ingredients: _getIngredientsForDay(day),
                   ),
                 ],
               ),
@@ -69,7 +68,6 @@ class _MealPlanningScreenState extends State<MealPlanningScreen> {
     );
   }
 
-  // List of days of the week
   final List<String> daysOfWeek = const [
     'Monday',
     'Tuesday',
@@ -79,13 +77,91 @@ class _MealPlanningScreenState extends State<MealPlanningScreen> {
     'Saturday',
     'Sunday',
   ];
+
+  Map<String, List<String>> _getIngredientsForDay(String day) {
+    Map<String, List<String>> ingredients = {};
+    for (var mealType in ['Breakfast', 'Lunch', 'Dinner']) {
+      String? recipe = selectedMeals[day]![mealType];
+      if (recipe != null) {
+        ingredients[mealType] = recipesIngredients[recipe] ?? [];
+      }
+    }
+    return ingredients;
+  }
+
+  final Map<String, List<String>> recipesIngredients = {
+    'Spaghetti Carbonara': [
+      'Spaghetti',
+      'Eggs',
+      'Parmesan cheese',
+      'Pancetta',
+      'Black pepper',
+    ],
+    'Chicken Parmesan': [
+      'Chicken breasts',
+      'Bread crumbs',
+      'Parmesan cheese',
+      'Marinara sauce',
+      'Mozzarella cheese',
+    ],
+    'Beef Stew': [
+      'Beef',
+      'Carrots',
+      'Potatoes',
+      'Onions',
+      'Beef broth',
+    ],
+    'Vegetable Stir-fry': [
+      'Mixed vegetables',
+      'Soy sauce',
+      'Garlic',
+      'Ginger',
+      'Sesame oil',
+    ],
+    'Pancakes': [
+      'Flour',
+      'Milk',
+      'Eggs',
+      'Baking powder',
+      'Butter',
+    ],
+    'Omelette': [
+      'Eggs',
+      'Cheese',
+      'Bell peppers',
+      'Onions',
+      'Salt',
+    ],
+    'Avocado Toast': [
+      'Bread',
+      'Avocado',
+      'Lemon juice',
+      'Salt',
+      'Pepper',
+    ],
+    'Smoothie Bowl': [
+      'Frozen berries',
+      'Banana',
+      'Yogurt',
+      'Granola',
+      'Honey',
+    ],
+    'Chicken Fajitas': [
+      'Chicken breasts',
+      'Bell peppers',
+      'Onions',
+      'Fajita seasoning',
+      'Tortillas',
+    ],
+  };
 }
 
 class MealDayCard extends StatefulWidget {
   final String day;
   final Function(String mealType, String recipe) onMealSelected;
+  final Map<String, List<String>> ingredients;
 
-  const MealDayCard({super.key, required this.day, required this.onMealSelected});
+  const MealDayCard({super.key, required this.day, required this.onMealSelected, required this.ingredients});
 
   @override
   _MealDayCardState createState() => _MealDayCardState();
@@ -134,13 +210,11 @@ class _MealDayCardState extends State<MealDayCard> {
         } else if (mealType == 'Dinner') {
           dinner = selectedRecipe;
         }
-        // Notify the parent widget about the selected meal
         widget.onMealSelected(mealType, selectedRecipe);
       });
     }
   }
 
-  // Sample available recipes
   final List<String> availableRecipes = const [
     'Spaghetti Carbonara',
     'Chicken Parmesan',
@@ -152,6 +226,40 @@ class _MealDayCardState extends State<MealDayCard> {
     'Smoothie Bowl',
     'Chicken Fajitas',
   ];
+
+  void _showIngredientsDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Ingredients'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: _buildIngredientsList(),
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('Close'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  List<Widget> _buildIngredientsList() {
+    List<Widget> ingredientsWidgets = [];
+    widget.ingredients.forEach((mealType, ingredients) {
+      if (ingredients.isNotEmpty) {
+        ingredientsWidgets.add(Text('$mealType:', style: const TextStyle(fontWeight: FontWeight.bold)));
+        ingredientsWidgets.addAll(ingredients.map((ingredient) => Text(' - $ingredient')).toList());
+        ingredientsWidgets.add(const SizedBox(height: 10)); // Add space between meal types
+      }
+    });
+    return ingredientsWidgets;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -187,6 +295,11 @@ class _MealDayCardState extends State<MealDayCard> {
             ElevatedButton(
               onPressed: () => _selectMeal('Dinner'),
               child: const Text('Select Dinner Recipe'),
+            ),
+            const SizedBox(height: 10),
+            ElevatedButton(
+              onPressed: _showIngredientsDialog,
+              child: const Text('Show Ingredients'),
             ),
             const SizedBox(height: 10),
           ],
