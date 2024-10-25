@@ -10,8 +10,10 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.blueAccent,
       appBar: AppBar(
         title: const Text('Delicioso'),
+        backgroundColor: Colors.redAccent,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -28,7 +30,7 @@ class HomeScreen extends StatelessWidget {
               },
               child: const Text('Recipes'),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height:20),
             ElevatedButton(
               onPressed: () {
                 Navigator.push(
