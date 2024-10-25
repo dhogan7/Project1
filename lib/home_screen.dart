@@ -1,8 +1,8 @@
-// home_screen.dart
 import 'package:flutter/material.dart';
 import 'recipes_screen.dart';
 import 'favorites_screen.dart';
 import 'cuisine_screen.dart';
+import 'meal_planning_screen.dart'; // Import your Meal Planning screen
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -30,17 +30,7 @@ class HomeScreen extends StatelessWidget {
               },
               child: const Text('Recipes'),
             ),
-            const SizedBox(height:20),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const FavoritesScreen()),
-                );
-              },
-              child: const Text('View Favorites'),
-            ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
                 Navigator.push(
@@ -49,6 +39,26 @@ class HomeScreen extends StatelessWidget {
                 );
               },
               child: const Text('Explore Cuisines'),
+            ),
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const MealPlanningScreen()),
+                );
+              },
+              child: const Text('Meal Planning'),
+            ),
+            const Spacer(), // Pushes the following button to the bottom
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const FavoritesScreen()),
+                );
+              },
+              child: const Text('Favorites'),
             ),
           ],
         ),

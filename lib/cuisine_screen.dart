@@ -49,29 +49,68 @@ class RecipeListScreen extends StatelessWidget {
       'Greek Salad': {
         'summary': ['A refreshing salad made with cucumbers, tomatoes, and feta cheese.'],
         'instructions': ['Chop vegetables.', 'Mix all ingredients.', 'Serve chilled.'],
-        'groceryList': ['Cucumbers', 'Tomatoes', 'Feta Cheese', 'Olive Oil', 'Lemon Juice'],
+        'ingredients': ['Cucumbers', 'Tomatoes', 'Feta Cheese', 'Olive Oil', 'Lemon Juice'],
       },
       'Hummus': {
         'summary': ['A creamy dip made from blended chickpeas and tahini.'],
         'instructions': ['Blend chickpeas, tahini, and lemon juice.', 'Serve with pita.'],
-        'groceryList': ['Chickpeas', 'Tahini', 'Lemon', 'Garlic', 'Olive Oil'],
+        'ingredients': ['Chickpeas', 'Tahini', 'Lemon', 'Garlic', 'Olive Oil'],
       },
-      // Add more recipes here...
     },
     'Mexican': {
       'Tacos': {
         'summary': ['Corn tortillas filled with meat, cheese, and fresh toppings.'],
         'instructions': ['Cook meat.', 'Fill tortillas.', 'Add toppings.'],
-        'groceryList': ['Tortillas', 'Ground beef', 'Cheese', 'Lettuce', 'Tomatoes'],
+        'ingredients': ['Tortillas', 'Ground beef', 'Cheese', 'Lettuce', 'Tomatoes'],
       },
       'Enchiladas': {
         'summary': ['Rolled tortillas filled with meat and covered in sauce.'],
         'instructions': ['Fill tortillas with meat and cheese.', 'Roll and place in baking dish.', 'Cover with sauce and bake.'],
-        'groceryList': ['Tortillas', 'Shredded chicken', 'Cheese', 'Enchilada sauce', 'Sour cream'],
+        'ingredients': ['Tortillas', 'Shredded chicken', 'Cheese', 'Enchilada sauce', 'Sour cream'],
       },
-      
     },
-    // Add other cuisines...
+    'Italian': {
+      'Spaghetti Carbonara': {
+        'summary': ['A classic Italian pasta dish made with eggs, cheese, pancetta, and pepper.'],
+        'instructions': [
+          'Cook spaghetti according to package instructions.',
+          'In a bowl, mix eggs and cheese.',
+          'Drain spaghetti and mix with egg mixture off the heat.',
+          'Serve with additional cheese and pepper.'
+        ],
+        'ingredients': ['Spaghetti', 'Eggs', 'Pecorino Romano cheese', 'Pancetta', 'Black pepper'],
+      },
+      'Margherita Pizza': {
+        'summary': ['A simple pizza topped with fresh tomatoes, mozzarella cheese, and basil.'],
+        'instructions': [
+          'Prepare pizza dough.',
+          'Spread tomato sauce on the base.',
+          'Add mozzarella slices and fresh basil.',
+          'Bake until crust is golden and cheese is bubbly.'
+        ],
+        'ingredients': ['Pizza dough', 'Tomato sauce', 'Mozzarella cheese', 'Fresh basil', 'Olive oil'],
+      },
+    },
+    'Asian': {
+      'Vegetable Stir-fry': {
+        'summary': ['A quick and healthy dish made with assorted vegetables stir-fried in soy sauce.'],
+        'instructions': [
+          'Heat oil in a pan.',
+          'Add mixed vegetables and stir-fry for 5-7 minutes.',
+          'Add soy sauce and serve with rice.'
+        ],
+        'ingredients': ['Mixed vegetables', 'Soy sauce', 'Rice', 'Cooking oil'],
+      },
+      'Chicken Teriyaki': {
+        'summary': ['Grilled chicken glazed with a sweet soy sauce teriyaki.'],
+        'instructions': [
+          'Marinate chicken in teriyaki sauce for at least 30 minutes.',
+          'Grill or pan-fry until cooked through.',
+          'Serve with steamed rice and vegetables.'
+        ],
+        'ingredients': ['Chicken breasts', 'Teriyaki sauce', 'Rice', 'Steamed vegetables'],
+      },
+    },
   };
 
   @override
@@ -115,7 +154,7 @@ class DetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final instructions = details['instructions'] ?? [];
-    final groceryList = details['groceryList'] ?? [];
+    final groceryList = details['ingredients'] ?? [];
 
     return Scaffold(
       appBar: AppBar(
@@ -130,7 +169,7 @@ class DetailsScreen extends StatelessWidget {
             for (var instruction in instructions) 
               Text('• $instruction'),
             const SizedBox(height: 16),
-            Text('Grocery List:', style: Theme.of(context).textTheme.titleLarge),
+            Text('Ingredients:', style: Theme.of(context).textTheme.titleLarge),
             for (var item in groceryList) 
               Text('• $item'),
           ],
