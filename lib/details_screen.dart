@@ -33,7 +33,7 @@ class DetailsScreen extends StatelessWidget {
                 Text('• $instruction', style: const TextStyle(fontSize: 16)),
               const SizedBox(height: 16),
               Text(
-                'Grocery List:',
+                'Ingredients:',
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               for (var item in groceryList) 

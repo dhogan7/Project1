@@ -135,5 +135,10 @@ class MealSelectionButton extends StatelessWidget {
     'Chicken Parmesan',
     'Beef Stew',
     'Vegetable Stir-fry',
+    'Pancakes',
+    'Omelette',
+    'Avocado Toast',
+    'Smoothie Bowl',
+    'Chicken Fajitas',
   ];
 }
