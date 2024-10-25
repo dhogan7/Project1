@@ -89,6 +89,20 @@ class RecipesScreen extends StatelessWidget {
           'Seasoning of choice'
         ],
       },
+      {
+        'name': 'Greek Salad',
+        'instructions': [
+          'Chop vegetables.',
+          'Mix all ingredients',
+          'Serve chilled.'
+        ],
+        'ingredients': [
+          'Cucumbers',
+          'Tomatoes',
+          'Juice from Lemon',
+          'Feta cheese'
+        ],
+      },
     ],
     'Dinner': [
       {
@@ -156,6 +170,7 @@ class RecipesScreen extends StatelessWidget {
       },
       {
           'name': 'Greek Salad',
+        },
       },
     ],
   };
