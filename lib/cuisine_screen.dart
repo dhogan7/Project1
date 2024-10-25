@@ -49,7 +49,7 @@ class RecipeListScreen extends StatelessWidget {
       'Greek Salad': {
         'summary': ['A refreshing salad made with cucumbers, tomatoes, and feta cheese.'],
         'instructions': ['Chop vegetables.', 'Mix all ingredients.', 'Serve chilled.'],
-        'ingredients': ['Cucumbers', 'Tomatoes', 'Feta Cheese', 'Olive Oil', 'Lemon Juice'],
+        'ingredients': ['Cucumbers', 'Tomatoes', 'Feta Cheese', 'Olive Oil', 'Juice from a lemon'],
       },
       'Hummus': {
         'summary': ['A creamy dip made from blended chickpeas and tahini.'],

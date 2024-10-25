@@ -154,6 +154,10 @@ class RecipesScreen extends StatelessWidget {
           'Cooking oil'
         ],
       },
+      {
+          'name': 'Greek Salad',
+        },
+      },
     ],
   };
 
