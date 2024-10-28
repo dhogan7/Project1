@@ -263,6 +263,7 @@ class MealDayCard extends StatelessWidget {
     'Avocado Toast',
     'Smoothie Bowl',
     'Chicken Fajitas',
+    'Greek Salad',
   ];
 
   @override

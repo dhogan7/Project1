@@ -170,8 +170,41 @@ class RecipesScreen extends StatelessWidget {
       },
       {
           'name': 'Greek Salad',
-        },
-      
+          'instruction': [
+            'In a large bowl, add the cucumber, tomato, red onion, and bell pepper.',
+            'Toss in the olives and feta cheese.',
+            'Sprinkle with salt, pepper, and oregano.',
+            'Drizzle with olive oil and vinegar (or lemon juice).',
+            'Gently toss everything together.'
+          ],
+          'ingredients': [
+            'Chopped Cucumber',
+            'Large Tomato',
+            'Red Onion',
+            'Green Bell Pepper',
+            'Kalamata Olives',
+            'Feta Cheese',
+            'Salt & Pepper',
+            'Olive oil',
+            'Vinegar or lemon juice',
+            'Oregano'
+          ]
+      },
+      {
+          'name': 'Tacos',
+          'instruction': [
+            'Cook the meat of your choice: Beef or Chicken, for 5-7 minutes.',
+            'Warm the tortillas on a skillets at a low temperature.',
+            'Assemble the tacos with choice of meat and toppings.'
+          ],
+          'ingredients': [
+            'Gorunded Beef or chicken',
+            'Taco Seasoning',
+            'Onion',
+            'Cilantro',
+            'Lime (for juice)'
+          ]
+      },
     ],
   };
 
