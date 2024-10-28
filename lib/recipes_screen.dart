@@ -171,7 +171,7 @@ class RecipesScreen extends StatelessWidget {
       {
           'name': 'Greek Salad',
         },
-      },
+      
     ],
   };
 

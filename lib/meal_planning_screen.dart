@@ -49,6 +49,40 @@ class _MealPlanningScreenState extends State<MealPlanningScreen> {
     }
   }
 
+  void _showIngredientsDialog(String day) {
+    Map<String, String?> meals = selectedMeals[day]!;
+    List<String> ingredientsList = [];
+
+    meals.forEach((mealType, recipe) {
+      if (recipe != null) {
+        ingredientsList.add('$mealType:');
+        ingredientsList.addAll(recipesIngredients[recipe]!.map((ingredient) => ' - $ingredient'));
+      }
+    });
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Ingredients'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: ingredientsList.isNotEmpty
+                  ? ingredientsList.map((ingredient) => Text(ingredient)).toList()
+                  : [const Text('No meals selected for this day.')],
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('Close'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     String currentDay = daysOfWeek[currentDayIndex];
@@ -82,6 +116,7 @@ class _MealPlanningScreenState extends State<MealPlanningScreen> {
                     selectedMeals[currentDay]![mealType] = recipe;
                   });
                 },
+                onShowIngredients: () => _showIngredientsDialog(currentDay),
               ),
             ),
             Row(
@@ -102,18 +137,86 @@ class _MealPlanningScreenState extends State<MealPlanningScreen> {
       ),
     );
   }
+
+  final Map<String, List<String>> recipesIngredients = {
+    'Spaghetti Carbonara': [
+      'Spaghetti',
+      'Eggs',
+      'Parmesan cheese',
+      'Pancetta',
+      'Black pepper',
+    ],
+    'Chicken Parmesan': [
+      'Chicken breasts',
+      'Bread crumbs',
+      'Parmesan cheese',
+      'Marinara sauce',
+      'Mozzarella cheese',
+    ],
+    'Beef Stew': [
+      'Beef',
+      'Carrots',
+      'Potatoes',
+      'Onions',
+      'Beef broth',
+    ],
+    'Vegetable Stir-fry': [
+      'Mixed vegetables',
+      'Soy sauce',
+      'Garlic',
+      'Ginger',
+      'Sesame oil',
+    ],
+    'Pancakes': [
+      'Flour',
+      'Milk',
+      'Eggs',
+      'Baking powder',
+      'Butter',
+    ],
+    'Omelette': [
+      'Eggs',
+      'Cheese',
+      'Bell peppers',
+      'Onions',
+      'Salt',
+    ],
+    'Avocado Toast': [
+      'Bread',
+      'Avocado',
+      'Lemon juice',
+      'Salt',
+      'Pepper',
+    ],
+    'Smoothie Bowl': [
+      'Frozen berries',
+      'Banana',
+      'Yogurt',
+      'Granola',
+      'Honey',
+    ],
+    'Chicken Fajitas': [
+      'Chicken breasts',
+      'Bell peppers',
+      'Onions',
+      'Fajita seasoning',
+      'Tortillas',
+    ],
+  };
 }
 
 class MealDayCard extends StatelessWidget {
   final String day;
   final Map<String, String?> selectedMeals;
   final Function(String mealType, String recipe) onMealSelected;
+  final VoidCallback onShowIngredients;
 
   const MealDayCard({
     super.key,
     required this.day,
     required this.selectedMeals,
     required this.onMealSelected,
+    required this.onShowIngredients,
   });
 
   void _selectMeal(BuildContext context, String mealType) async {
@@ -200,6 +303,11 @@ class MealDayCard extends StatelessWidget {
                 onPressed: () => _selectMeal(context, 'Dinner'),
                 child: const Text('Select Dinner Recipe'),
               ),
+            const SizedBox(height: 10),
+            ElevatedButton(
+              onPressed: onShowIngredients,
+              child: const Text('Show Ingredients'),
+            ),
             const SizedBox(height: 10),
           ],
         ),
