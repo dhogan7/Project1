@@ -3,7 +3,7 @@ import 'details_screen.dart';
 import 'favorites_screen.dart';
 
 class RecipesScreen extends StatefulWidget {
-   RecipesScreen({super.key});
+  RecipesScreen({super.key});
 
   // Remove const to make the map mutable
   final Map<String, List<Map<String, dynamic>>> recipes = {
@@ -100,7 +100,7 @@ class RecipesScreen extends StatefulWidget {
         'name': 'Greek Salad',
         'instructions': [
           'Chop vegetables.',
-          'Mix all ingredients',
+          'Mix all ingredients.',
           'Serve chilled.'
         ],
         'ingredients': [

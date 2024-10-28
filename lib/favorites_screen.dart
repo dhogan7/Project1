@@ -6,8 +6,7 @@ class FavoritesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Retrieve the favorite recipes from the arguments
-    final List<Map<String, dynamic>> favoriteRecipes = ModalRoute.of(context)!.settings.arguments as List<Map<String, dynamic>>;
+    final List<Map<String, dynamic>> favoriteRecipes = ModalRoute.of(context)?.settings.arguments as List<Map<String, dynamic>>? ?? [];
 
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 248, 172, 9),
@@ -15,27 +14,29 @@ class FavoritesScreen extends StatelessWidget {
         backgroundColor: Colors.redAccent,
         title: const Text('Favorite Recipes'),
       ),
-      body: ListView.builder(
-        itemCount: favoriteRecipes.length,
-        itemBuilder: (context, index) {
-          final recipe = favoriteRecipes[index];
-          return ListTile(
-            title: Text(recipe['name']),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => DetailsScreen(
-                    recipeName: recipe['name'],
-                    instructions: recipe['instructions'],
-                    groceryList: recipe['ingredients'],
-                  ),
-                ),
-              );
-            },
-          );
-        },
-      ),
+      body: favoriteRecipes.isNotEmpty 
+          ? ListView.builder(
+              itemCount: favoriteRecipes.length,
+              itemBuilder: (context, index) {
+                final recipe = favoriteRecipes[index];
+                return ListTile(
+                  title: Text(recipe['name']),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => DetailsScreen(
+                          recipeName: recipe['name'],
+                          instructions: recipe['instructions'],
+                          groceryList: recipe['ingredients'],
+                        ),
+                      ),
+                    );
+                  },
+                );
+              },
+            )
+          : const Center(child: Text('No favorite recipes found.')),
     );
   }
 }

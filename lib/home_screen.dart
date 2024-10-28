@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'recipes_screen.dart';
-import 'favorites_screen.dart';
 import 'cuisine_screen.dart';
 import 'meal_planning_screen.dart'; // Import your Meal Planning screen
 
@@ -51,15 +50,6 @@ class HomeScreen extends StatelessWidget {
               child: const Text('Meal Planning'),
             ),
             const Spacer(), // Pushes the following button to the bottom
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const FavoritesScreen()),
-                );
-              },
-              child: const Text('Favorites'),
-            ),
           ],
         ),
       ),
