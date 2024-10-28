@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'details_screen.dart';
+import 'favorites_screen.dart';
 
-class RecipesScreen extends StatelessWidget {
-  const RecipesScreen({super.key});
+class RecipesScreen extends StatefulWidget {
+   RecipesScreen({super.key});
 
-  final Map<String, List<Map<String, dynamic>>> recipes = const {
+  // Remove const to make the map mutable
+  final Map<String, List<Map<String, dynamic>>> recipes = {
     'Breakfast': [
       {
         'name': 'Pancakes',
@@ -23,6 +25,7 @@ class RecipesScreen extends StatelessWidget {
           'Eggs',
           'Butter'
         ],
+        'isFavorite': false,
       },
       {
         'name': 'Omelette',
@@ -40,6 +43,7 @@ class RecipesScreen extends StatelessWidget {
           'Vegetables (e.g., bell peppers, onions)',
           'Cooking oil'
         ],
+        'isFavorite': false,
       },
       {
         'name': 'Avocado Toast',
@@ -55,6 +59,7 @@ class RecipesScreen extends StatelessWidget {
           'Pepper',
           'Optional toppings (e.g., tomatoes, poached eggs)'
         ],
+        'isFavorite': false,
       },
       {
         'name': 'Smoothie Bowl',
@@ -69,6 +74,7 @@ class RecipesScreen extends StatelessWidget {
           'Granola',
           'Nuts'
         ],
+        'isFavorite': false,
       },
     ],
     'Lunch': [
@@ -88,6 +94,7 @@ class RecipesScreen extends StatelessWidget {
           'Cooking oil',
           'Seasoning of choice'
         ],
+        'isFavorite': false,
       },
       {
         'name': 'Greek Salad',
@@ -102,6 +109,7 @@ class RecipesScreen extends StatelessWidget {
           'Juice from Lemon',
           'Feta cheese'
         ],
+        'isFavorite': false,
       },
     ],
     'Dinner': [
@@ -120,6 +128,7 @@ class RecipesScreen extends StatelessWidget {
           'Black pepper',
           'Pancetta'
         ],
+        'isFavorite': false,
       },
       {
         'name': 'Chicken Parmesan',
@@ -136,6 +145,7 @@ class RecipesScreen extends StatelessWidget {
           'Mozzarella cheese',
           'Spaghetti'
         ],
+        'isFavorite': false,
       },
       {
         'name': 'Beef Stew',
@@ -153,6 +163,7 @@ class RecipesScreen extends StatelessWidget {
           'Beef broth',
           'Seasonings'
         ],
+        'isFavorite': false,
       },
       {
         'name': 'Vegetable Stir-fry',
@@ -167,46 +178,21 @@ class RecipesScreen extends StatelessWidget {
           'Rice',
           'Cooking oil'
         ],
-      },
-      {
-          'name': 'Greek Salad',
-          'instruction': [
-            'In a large bowl, add the cucumber, tomato, red onion, and bell pepper.',
-            'Toss in the olives and feta cheese.',
-            'Sprinkle with salt, pepper, and oregano.',
-            'Drizzle with olive oil and vinegar (or lemon juice).',
-            'Gently toss everything together.'
-          ],
-          'ingredients': [
-            'Chopped Cucumber',
-            'Large Tomato',
-            'Red Onion',
-            'Green Bell Pepper',
-            'Kalamata Olives',
-            'Feta Cheese',
-            'Salt & Pepper',
-            'Olive oil',
-            'Vinegar or lemon juice',
-            'Oregano'
-          ]
-      },
-      {
-          'name': 'Tacos',
-          'instruction': [
-            'Cook the meat of your choice: Beef or Chicken, for 5-7 minutes.',
-            'Warm the tortillas on a skillets at a low temperature.',
-            'Assemble the tacos with choice of meat and toppings.'
-          ],
-          'ingredients': [
-            'Gorunded Beef or chicken',
-            'Taco Seasoning',
-            'Onion',
-            'Cilantro',
-            'Lime (for juice)'
-          ]
+        'isFavorite': false,
       },
     ],
   };
+
+  @override
+  _RecipesScreenState createState() => _RecipesScreenState();
+}
+
+class _RecipesScreenState extends State<RecipesScreen> {
+  void _toggleFavorite(Map<String, dynamic> recipe) {
+    setState(() {
+      recipe['isFavorite'] = !recipe['isFavorite'];
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -215,9 +201,27 @@ class RecipesScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.redAccent,
         title: const Text('Recipe List'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.favorite),
+            onPressed: () {
+              final favoriteRecipes = widget.recipes.values
+                  .expand((meal) => meal)
+                  .where((recipe) => recipe['isFavorite'])
+                  .toList();
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => FavoritesScreen(),
+                  settings: RouteSettings(arguments: favoriteRecipes),
+                ),
+              );
+            },
+          ),
+        ],
       ),
       body: ListView(
-        children: recipes.entries.map((entry) {
+        children: widget.recipes.entries.map((entry) {
           final mealType = entry.key;
           final mealRecipes = entry.value;
 
@@ -234,6 +238,13 @@ class RecipesScreen extends StatelessWidget {
               ...mealRecipes.map((recipe) {
                 return ListTile(
                   title: Text(recipe['name']),
+                  trailing: IconButton(
+                    icon: Icon(
+                      recipe['isFavorite'] ? Icons.favorite : Icons.favorite_border,
+                      color: recipe['isFavorite'] ? Colors.red : null,
+                    ),
+                    onPressed: () => _toggleFavorite(recipe),
+                  ),
                   onTap: () {
                     Navigator.push(
                       context,
